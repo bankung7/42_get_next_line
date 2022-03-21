@@ -1,3 +1,4 @@
 gnl_tester/
 gnl_tester/*
 main.c
+gnl_backup.c
