@@ -6,7 +6,7 @@
 /*   By: vnilprap <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/13 10:04:57 by vnilprap          #+#    #+#             */
-/*   Updated: 2022/03/23 19:23:49 by vnilprap         ###   ########.fr       */
+/*   Updated: 2022/03/23 19:35:22 by vnilprap         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <fcntl.h>
@@ -33,56 +33,30 @@ static	int	ft_chknl(char *s)
 	return (i);
 }
 
-static char 	*ft_chksub(char *s)
-{
-	char		*tmp;
-	static char	*sub;
-
-	tmp = 0;
-	if (s == 0 && sub == 0)
-		return (0);
-	if (s == 0 && sub != 0 && (int)ft_strlen(sub) > 0)
-	{
-		s = ft_strdup(sub);
-		free(sub);
-		sub = 0;
-		return (s);
-	}
-	if (ft_chknl(s) < (int)ft_strlen(s))
-	{
-		tmp = ft_substr(s, 0, ft_chknl(s));
-		sub = ft_substr(s, ft_chknl(s), (int)ft_strlen(s) - ft_chknl(s));	
-		free(s);
-		return (tmp);
-	}
-	sub = ft_strdup(s);
-	free(s);
-	s = 0;
-	printf("false here\n");
-	return (0);
-}
-
 char	*get_next_line(int fd)
 {
 	int	rd;
 	char	*s;
 	char	*bf;
 	char	*tmp;
+	static char	*sub;
 
 	s = 0;
 	rd = 1;
+	bf = 0;
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (0);
-	s = ft_chksub(0);
+	if (sub != 0 && (int)ft_strlen(sub) > 0)
+	{
+		s = ft_strdup(sub);
+		free(sub);
+		sub = 0;
+	}
 	while (rd > 0)
 	{
-		bf = 0;
 		bf = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 		if (!bf)
-		{
-			free(s);
 			return (0);
-		}
 		rd = read(fd, bf, BUFFER_SIZE);
 		if (rd > 0)
 		{
@@ -90,16 +64,27 @@ char	*get_next_line(int fd)
 			tmp = ft_strjoin(s, bf);
 			free(s);
 			s = tmp;
-			printf("%s\n", s);
-			tmp = ft_chksub(s);
-			if(tmp != 0)
+			if (ft_chknl(s) < (int)ft_strlen(s))
 			{
+				tmp = ft_substr(s, 0, ft_chknl(s));
+				sub = ft_substr(s, ft_chknl(s), (int)ft_strlen(s) - ft_chknl(s));
 				free(bf);
+				free(s);
 				return (tmp);
 			}
 		}
 		free(bf);
 	}
-	printf("here with %s\n", s);
+	if (s != 0 && (int)ft_strlen(s))
+	{
+		if (ft_chknl(s) < (int)ft_strlen(s))
+		{
+			tmp = ft_substr(s, 0, ft_chknl(s));
+			sub = ft_substr(s, ft_chknl(s), (int)ft_strlen(s) - ft_chknl(s));
+			free(s);
+			s = tmp;
+		}
+		return (s);
+	}
 	return (0);
 }
