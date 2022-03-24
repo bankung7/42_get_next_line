@@ -6,7 +6,7 @@
 /*   By: vnilprap <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/13 10:04:57 by vnilprap          #+#    #+#             */
-/*   Updated: 2022/03/23 19:35:22 by vnilprap         ###   ########.fr       */
+/*   Updated: 2022/03/24 10:33:58 by vnilprap         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <fcntl.h>
@@ -64,11 +64,16 @@ char	*get_next_line(int fd)
 			tmp = ft_strjoin(s, bf);
 			free(s);
 			s = tmp;
-			if (ft_chknl(s) < (int)ft_strlen(s))
+			if (ft_chknl(s) <= (int)ft_strlen(s))
 			{
 				tmp = ft_substr(s, 0, ft_chknl(s));
-				sub = ft_substr(s, ft_chknl(s), (int)ft_strlen(s) - ft_chknl(s));
 				free(bf);
+				if (ft_chknl(s) == (int)ft_strlen(s))
+				{
+					free(s);
+					return (tmp);
+				}
+				sub = ft_substr(s, ft_chknl(s), (int)ft_strlen(s) - ft_chknl(s));
 				free(s);
 				return (tmp);
 			}
