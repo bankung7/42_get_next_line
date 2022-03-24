@@ -6,7 +6,11 @@
 /*   By: vnilprap <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/13 10:04:57 by vnilprap          #+#    #+#             */
+<<<<<<< HEAD:gnl_fixed.c
 /*   Updated: 2022/03/24 10:33:58 by vnilprap         ###   ########.fr       */
+=======
+/*   Updated: 2022/03/23 22:00:48 by vnilprap         ###   ########.fr       */
+>>>>>>> c329b5969c8d6e25324f7b33b0b977dcf9420673:back.c
 /*                                                                            */
 /* ************************************************************************** */
 #include <fcntl.h>
@@ -67,6 +71,11 @@ char	*get_next_line(int fd)
 			if (ft_chknl(s) <= (int)ft_strlen(s))
 			{
 				tmp = ft_substr(s, 0, ft_chknl(s));
+<<<<<<< HEAD:gnl_fixed.c
+=======
+				if (ft_chknl(s) != (int)ft_strlen(s))
+					sub = ft_substr(s, ft_chknl(s), (int)ft_strlen(s) - ft_chknl(s));
+>>>>>>> c329b5969c8d6e25324f7b33b0b977dcf9420673:back.c
 				free(bf);
 				if (ft_chknl(s) == (int)ft_strlen(s))
 				{
