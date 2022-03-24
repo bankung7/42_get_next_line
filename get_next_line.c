@@ -6,7 +6,7 @@
 /*   By: vnilprap <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/13 10:04:57 by vnilprap          #+#    #+#             */
-/*   Updated: 2022/03/24 12:57:30 by vnilprap         ###   ########.fr       */
+/*   Updated: 2022/03/24 15:40:47 by vnilprap         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <fcntl.h>
@@ -78,18 +78,12 @@ static char	*ft_getword(char *s, char *bf)
 	return (s);
 }
 
-char	*get_next_line(int fd)
+static char	*ft_getbf(int fd, char *s, char *bf)
 {
 	int		rd;
-	char	*s;
-	char	*bf;
 	char	*tmp;
 
 	rd = 1;
-	bf = 0;
-	if (fd < 0 || BUFFER_SIZE <= 0)
-		return (0);
-	s = ft_getsub(0);
 	while (rd > 0)
 	{
 		bf = malloc(sizeof(char) * (BUFFER_SIZE + 1));
@@ -110,4 +104,20 @@ char	*get_next_line(int fd)
 	if (s != 0 && (int)ft_strlen(s))
 		return (ft_getword(s, 0));
 	return (0);
+}
+
+char	*get_next_line(int fd)
+{
+	int		rd;
+	char	*s;
+	char	*bf;
+	char	*tmp;
+
+	rd = 1;
+	bf = 0;
+	if (fd < 0 || BUFFER_SIZE <= 0)
+		return (0);
+	s = ft_getsub(0);
+	tmp = ft_getbf(fd, s, bf);
+	return (tmp);
 }
