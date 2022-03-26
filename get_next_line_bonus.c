@@ -9,8 +9,6 @@
 /*   Updated: 2022/03/26 10:51:02 by vnilprap         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <fcntl.h>
-#include <stdio.h>
 #include "get_next_line.h"
 
 static	int	ft_chknl(char *s)
@@ -32,31 +30,31 @@ static	int	ft_chknl(char *s)
 	return (i);
 }
 
-static char	*ft_getsub(char *s)
+static char	*ft_getsub(char *s, int fd)
 {
 	char		*tmp;
-	static char	*sub;
+	static char	*sub[10000];
 
 	tmp = 0;
-	if (s == 0 && sub != 0 && (int)ft_strlen(sub) > 0)
+	if (s == 0 && sub[fd] != 0 && (int)ft_strlen(sub[fd]) > 0)
 	{
-		tmp = ft_strdup(sub);
-		free(sub);
-		sub = 0;
+		tmp = ft_strdup(sub[fd]);
+		free(sub[fd]);
+		sub[fd] = 0;
 		return (tmp);
 	}
 	if (s != 0)
 	{
-		tmp = ft_strjoin(sub, s);
+		tmp = ft_strjoin(sub[fd], s);
 		free(s);
-		free(sub);
-		sub = tmp;
+		free(sub[fd]);
+		sub[fd] = tmp;
 		return (0);
 	}
 	return (0);
 }
 
-static char	*ft_getword(char *s, char *bf)
+static char	*ft_getword(char *s, char *bf, int fd)
 {
 	char	*tmp;
 
@@ -71,7 +69,7 @@ static char	*ft_getword(char *s, char *bf)
 			free(s);
 			return (tmp);
 		}
-		ft_getsub(ft_substr(s, ft_chknl(s), (int)ft_strlen(s) - ft_chknl(s)));
+		ft_getsub(ft_substr(s, ft_chknl(s), (int)ft_strlen(s) - ft_chknl(s)), fd);
 		free(s);
 		return (tmp);
 	}
@@ -95,14 +93,14 @@ static char	*ft_getbf(int fd, char *s, char *bf)
 			bf[rd] = 0;
 			tmp = ft_strjoin(s, bf);
 			free(s);
-			s = ft_getword(tmp, bf);
+			s = ft_getword(tmp, bf, fd);
 			if (ft_chknl(s) <= (int)ft_strlen(s))
 				return (s);
 		}
 		free(bf);
 	}
 	if (s != 0 && (int)ft_strlen(s))
-		return (ft_getword(s, 0));
+		return (ft_getword(s, 0, fd));
 	return (0);
 }
 
@@ -115,7 +113,7 @@ char	*get_next_line(int fd)
 	bf = 0;
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (0);
-	s = ft_getsub(0);
+	s = ft_getsub(0, fd);
 	tmp = ft_getbf(fd, s, bf);
 	return (tmp);
 }
