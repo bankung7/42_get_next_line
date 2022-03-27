@@ -1,6 +1,5 @@
-gnl_testser/
-gnl_testser/*
 main.c
 backup/*
 backup/
 a.out
+gnl_tester/*

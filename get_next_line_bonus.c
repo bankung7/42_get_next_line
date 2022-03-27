@@ -6,7 +6,7 @@
 /*   By: vnilprap <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/13 10:04:57 by vnilprap          #+#    #+#             */
-/*   Updated: 2022/03/26 10:51:02 by vnilprap         ###   ########.fr       */
+/*   Updated: 2022/03/27 11:56:26 by vnilprap         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "get_next_line.h"
@@ -69,7 +69,8 @@ static char	*ft_getword(char *s, char *bf, int fd)
 			free(s);
 			return (tmp);
 		}
-		ft_getsub(ft_substr(s, ft_chknl(s), (int)ft_strlen(s) - ft_chknl(s)), fd);
+		ft_getsub(ft_substr(s,
+				ft_chknl(s), (int)ft_strlen(s) - ft_chknl(s)), fd);
 		free(s);
 		return (tmp);
 	}
@@ -99,7 +100,7 @@ static char	*ft_getbf(int fd, char *s, char *bf)
 		}
 		free(bf);
 	}
-	if (s != 0 && (int)ft_strlen(s))
+	if (s != 0 && (int)ft_strlen(s) && rd != -1)
 		return (ft_getword(s, 0, fd));
 	return (0);
 }
