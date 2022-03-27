@@ -6,7 +6,7 @@
 /*   By: vnilprap <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/13 10:04:57 by vnilprap          #+#    #+#             */
-/*   Updated: 2022/03/27 11:56:26 by vnilprap         ###   ########.fr       */
+/*   Updated: 2022/03/27 12:24:12 by vnilprap         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "get_next_line.h"
@@ -33,7 +33,7 @@ static	int	ft_chknl(char *s)
 static char	*ft_getsub(char *s, int fd)
 {
 	char		*tmp;
-	static char	*sub[10000];
+	static char	*sub[1024];
 
 	tmp = 0;
 	if (s == 0 && sub[fd] != 0 && (int)ft_strlen(sub[fd]) > 0)
@@ -100,7 +100,7 @@ static char	*ft_getbf(int fd, char *s, char *bf)
 		}
 		free(bf);
 	}
-	if (s != 0 && (int)ft_strlen(s) && rd != -1)
+	if (s != 0 && (int)ft_strlen(s) > 0 && rd != -1)
 		return (ft_getword(s, 0, fd));
 	return (0);
 }

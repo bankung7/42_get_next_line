@@ -6,7 +6,7 @@
 /*   By: vnilprap <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/13 10:04:57 by vnilprap          #+#    #+#             */
-/*   Updated: 2022/03/27 11:54:12 by vnilprap         ###   ########.fr       */
+/*   Updated: 2022/03/27 12:15:10 by vnilprap         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <fcntl.h>
@@ -101,7 +101,7 @@ static char	*ft_getbf(int fd, char *s, char *bf)
 		}
 		free(bf);
 	}
-	if (s != 0 && (int)ft_strlen(s) && rd != -1)
+	if (s != 0 && (int)ft_strlen(s) > 0 && rd != -1)
 		return (ft_getword(s, 0));
 	return (0);
 }
