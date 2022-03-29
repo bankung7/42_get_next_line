@@ -6,11 +6,9 @@
 /*   By: vnilprap <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/13 10:04:57 by vnilprap          #+#    #+#             */
-/*   Updated: 2022/03/27 12:15:10 by vnilprap         ###   ########.fr       */
+/*   Updated: 2022/03/29 08:25:28 by vnilprap         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <fcntl.h>
-#include <stdio.h>
 #include "get_next_line.h"
 
 static	int	ft_chknl(char *s)

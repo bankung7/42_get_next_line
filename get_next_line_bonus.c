@@ -6,10 +6,10 @@
 /*   By: vnilprap <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/13 10:04:57 by vnilprap          #+#    #+#             */
-/*   Updated: 2022/03/27 12:24:12 by vnilprap         ###   ########.fr       */
+/*   Updated: 2022/03/29 08:25:22 by vnilprap         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 static	int	ft_chknl(char *s)
 {
@@ -33,7 +33,7 @@ static	int	ft_chknl(char *s)
 static char	*ft_getsub(char *s, int fd)
 {
 	char		*tmp;
-	static char	*sub[1024];
+	static char	*sub[OPEN_MAX];
 
 	tmp = 0;
 	if (s == 0 && sub[fd] != 0 && (int)ft_strlen(sub[fd]) > 0)
