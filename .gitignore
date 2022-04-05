@@ -4,3 +4,5 @@ backup/
 a.out
 tester/*
 tester
+gnl_tester
+gnl_tester/*
